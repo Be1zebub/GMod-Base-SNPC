@@ -9,7 +9,7 @@ ENT.Category = "My Stuff"
 ENT.Spawnable 	= true
 ENT.AdminOnly 	= true
 
-ENT.Model = "models/characters/hostage_04.mdl"
+ENT.Model = "models/Kleiner.mdl"
 ENT.Sequence = "LineIdle04"
 
 if CLIENT then
