@@ -8,7 +8,7 @@ ENT.Sequence = "idle01"
 ENT.Model = "models/Barney.mdl"
 
 function ENT:Initialize()
-  	self:SetModel(model)
+  	self:SetModel(self.Model)
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 	self:SetUseType(SIMPLE_USE)
 	self:PhysicsInit(SOLID_VPHYSICS)
