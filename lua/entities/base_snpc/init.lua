@@ -7,6 +7,8 @@ include("shared.lua")
 ENT.Sequence = "idle01"
 ENT.Model = "models/Barney.mdl"
 
+util.AddNetworkString(ENT.NetID)
+
 function ENT:Initialize()
   	self:SetModel(self.Model)
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
@@ -24,4 +26,10 @@ function ENT:RunAnimation(anim)
 	)
 	self:SetCycle(0)
 	self:SetPlaybackRate(1)
+end
+
+function ENT:Use(ply)
+	net.Start(self.NetID)
+		net.WriteEntity(self)
+	net.Send(ply)
 end
