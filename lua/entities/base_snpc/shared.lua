@@ -3,6 +3,8 @@
 ENT.Base = "base_entity"
 ENT.AutomaticFrameAdvance = true
 
+ENT.NetID = ENT.Folder
+
 ENT.Spawnable 	= false -- its base :v
 ENT.AdminOnly 	= false
 
