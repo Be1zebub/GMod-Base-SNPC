@@ -28,6 +28,14 @@ function ENT:RunAnimation(anim)
 	self:SetPlaybackRate(1)
 end
 
+function ENT:RunAnimationPiece(anim, pos) -- str sequence, 0-1 position
+	self:ResetSequence(
+		self:LookupSequence(anim)
+	)
+	self:SetCycle(pos)
+	self:SetPlaybackRate(0)
+end
+
 function ENT:Use(ply)
 	net.Start(self.NetID)
 		net.WriteEntity(self)
