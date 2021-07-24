@@ -41,3 +41,19 @@ function ENT:Use(ply)
 		net.WriteEntity(self)
 	net.Send(ply)
 end
+
+function ENT:SpawnFunction(ply, tr, class)
+	if not tr.Hit then return end
+
+	local ent = ents.Create(class)
+	ent:SetPos(tr.HitPos - tr.HitNormal)
+
+	local ang = tr.HitNormal:Angle()
+	ang:RotateAroundAxis(ang:Right(), -90)
+	ent:SetAngles(ang)
+
+	ent:Spawn()
+	ent:Activate()
+
+	return ent
+end
