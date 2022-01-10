@@ -6,10 +6,12 @@ function ENT:Draw(f)
 	self:DrawModel(f)
 end
 
-net.Receive(ENT.NetID or ENT.Folder, function()
-	local ent = net.ReadEntity()
+function ENT:Initialize()
+	net.Receive(self.NetID or self.Folder, function()
+		local ent = net.ReadEntity()
 
-	if ent.OnUse then
-		ent:OnUse()
-	end
-end)
+		if ent.OnUse then
+			ent:OnUse()
+		end
+	end)
+end
