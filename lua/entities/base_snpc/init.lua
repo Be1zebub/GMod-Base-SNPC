@@ -58,7 +58,7 @@ function ENT:RunAnimationPiece(anim, pos) -- str sequence, 0-1 position
 end
 
 function ENT:Use(ply)
-	net.Start(self.NetID)
+	net.Start(self.NetID or self.Folder)
 		net.WriteEntity(self)
 	net.Send(ply)
 end
