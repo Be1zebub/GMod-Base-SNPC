@@ -2,14 +2,13 @@
 
 ENT.Base = "base_entity"
 ENT.AutomaticFrameAdvance = true
-
-ENT.NetID = ENT.Folder
+ENT.RenderGroup = RENDERGROUP_OPAQUE
 
 ENT.Spawnable 	= false -- its base :v
 ENT.AdminOnly 	= false
 
-ENT.Author       = "Beelzebub"
-ENT.Contact      = "beelzebub@incredible-gmod.ru"
+ENT.Author   = "gmodstore.com/users/beelzebub"
+ENT.Contact  = "discord.incredible-gmod.ru"
 
 function ENT:SetAutomaticFrameAdvance(bool)
 	self.AutomaticFrameAdvance = bool
