@@ -7,9 +7,9 @@ include("shared.lua")
 ENT.Sequence = "idle01"
 ENT.Model = "models/Barney.mdl"
 
-util.AddNetworkString(ENT.NetID)
-
 function ENT:Initialize()
+	util.AddNetworkString(self.NetID or self.Folder)
+	
   	self:SetModel(self.Model)
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 	self:SetUseType(SIMPLE_USE)
@@ -18,22 +18,43 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_BBOX)
 
 	self:RunAnimation(self.Sequence)
+	self:OpenEyes()
+end
+
+function ENT:SetDefaultAnimation()
+    if self.DefaultSequence then
+        self:ResetSequence(self.DefaultSequence)
+        return
+    end
+
+    local sec_id = self:LookupSequence("idle_all_01")
+
+	if sec_id <= 0 then sec_id = self:LookupSequence("idle") end
+    if sec_id <= 0 then sec_id = self:LookupSequence("walk_all") end
+    if sec_id <= 0 then sec_id = self:LookupSequence("WalkUnarmed_all") end
+    if sec_id <= 0 then sec_id = self:LookupSequence("walk_all_moderate") end
+
+    self:ResetSequence(sec_id)
 end
 
 function ENT:RunAnimation(anim)
-	self:ResetSequence(
-		self:LookupSequence(anim)
-	)
+	local sec_id = self:LookupSequence(anim)
+	if sec_id < 0 then self:SetDefaultAnimation() return false end
+
+	self:ResetSequence(sec_id)
 	self:SetCycle(0)
 	self:SetPlaybackRate(1)
+	return true
 end
 
 function ENT:RunAnimationPiece(anim, pos) -- str sequence, 0-1 position
-	self:ResetSequence(
-		self:LookupSequence(anim)
-	)
+	local sec_id = self:LookupSequence(anim)
+	if sec_id < 0 then self:SetDefaultAnimation() return false end
+
+	self:ResetSequence(sec_id)
 	self:SetCycle(pos)
 	self:SetPlaybackRate(0)
+	return true
 end
 
 function ENT:Use(ply)
@@ -56,4 +77,14 @@ function ENT:SpawnFunction(ply, tr, class)
 	ent:Activate()
 
 	return ent
+end
+
+function ENT:OpenEyes()
+	local FlexNum = self:GetFlexNum()
+	if FlexNum <= 0 then return end
+
+	for i = 0, FlexNum do
+		local Name = self:GetFlexName(i)
+		self:SetFlexWeight(i, 0)
+	end
 end
