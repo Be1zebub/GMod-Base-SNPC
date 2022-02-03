@@ -17,8 +17,11 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
 
-	self:RunAnimation(self.Sequence)
 	self:OpenEyes()
+	timer.Simple(0, function() -- https://wiki.facepunch.com/gmod/Entity:ResetSequence#:~:text=This%20will%20not%20work%20properly%20if%20called%20directly%20after%20calling%20Entity%3ASetModel.%20Consider%20waiting%20until%20the%20next%20Tick.
+		if IsValid(self) == false then return end
+		self:RunAnimation(self.Sequence)	
+	end)
 end
 
 function ENT:SetDefaultAnimation()
