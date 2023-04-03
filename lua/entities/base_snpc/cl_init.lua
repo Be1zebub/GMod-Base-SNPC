@@ -17,7 +17,7 @@ end
 function ENT:Initialize()
 	BASED[self:GetClass()] = true
 
-	net.Receive(self.NetID or self:GetClass(), function()
+	net.Receive(self.NetID or self.Folder, function()
 		local ent = net.ReadEntity()
 
 		if ent.OnUse then
